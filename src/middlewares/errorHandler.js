@@ -13,7 +13,7 @@ module.exports = function errorHandler(err, req, res, next) {
       statusCode = err.statusCode || 403;
       break;
 
-    case "ValidationError":
+    case "BadRequestError":
       statusCode = err.statusCode || 400;
       break;
 

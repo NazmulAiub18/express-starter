@@ -6,7 +6,11 @@ const app = require("./app");
 const port = process.env.PORT || 5000;
 
 mongoose
-  .connect(process.env.MONGODB, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+  .connect(process.env.MONGODB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  })
   .then(() => {
     console.log("MongoDB Connected!");
     return app.listen({ port });

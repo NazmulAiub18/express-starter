@@ -1,27 +1,19 @@
-const { ValidationError } = require("../utils/Errors");
+const { BadRequestError } = require("../utils/Errors");
 
 const formatYupError = require("../utils/formatYupError");
-const register = require("../validationSchemas/register");
 
-module.exports = async (req, res, next) => {
-  let schema = null;
+module.exports = function (schema) {
+  return async (req, _, next) => {
+    const data = req.body;
 
-  switch (req.url) {
-    case "/auth/register":
-      schema = register;
-      break;
-
-    default:
-      break;
-  }
-
-  if (!schema) {
-    return next();
-  }
-  try {
-    await schema.validate(req.body, { abortEarly: false });
-    return next();
-  } catch (err) {
-    return next(new ValidationError(err.message, formatYupError(err)));
-  }
+    if (!schema) {
+      return next(new Error("Please Provide Schema"));
+    }
+    try {
+      await schema.validate(data, { abortEarly: false });
+      return next();
+    } catch (err) {
+      return next(new BadRequestError(err.message, formatYupError(err)));
+    }
+  };
 };

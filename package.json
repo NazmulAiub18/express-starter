@@ -12,7 +12,7 @@
   "author": "ICMsoft <support@icmsoft.xyz> (https://icmsoft.xyz/)",
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/dynamic.ls.bd/survey-360-backend.git"
+    "url": "https://gitlab.com/icmsoft/survey360.git"
   },
   "license": "MIT",
   "dependencies": {
@@ -30,6 +30,7 @@
   "devDependencies": {
     "eslint": "^7.18.0",
     "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-import": "^2.22.1",
     "nodemon": "^2.0.7"
   }

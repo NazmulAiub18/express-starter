@@ -8,7 +8,6 @@ require("dotenv").config();
 
 const notFound = require("./middlewares/notFound");
 const errorHandler = require("./middlewares/errorHandler");
-const validate = require("./middlewares/validate");
 const api = require("./routes");
 
 const app = express();
@@ -25,7 +24,6 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/api/v1", validate);
 app.use("/api/v1", api);
 
 app.use(notFound);

@@ -7,9 +7,13 @@ const createAccessToken = (user) => {
 };
 
 const createRefreshToken = (user) => {
-  return sign({ userId: user._id, tokenVersion: user.tokenVersion }, process.env.REFRESH_TOKEN_SECRET, {
-    expiresIn: "7d",
-  });
+  return sign(
+    { userId: user._id, tokenVersion: user.tokenVersion },
+    process.env.REFRESH_TOKEN_SECRET,
+    {
+      expiresIn: "7d",
+    },
+  );
 };
 
 const sendRefreshToken = (res, token) => {

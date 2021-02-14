@@ -16,10 +16,10 @@ class AuthorizationError extends Error {
   }
 }
 
-class ValidationError extends Error {
+class BadRequestError extends Error {
   constructor(message, reason) {
     super(message);
-    this.name = "ValidationError";
+    this.name = "BadRequestError";
     this.statusCode = 400;
     this.reason = reason;
   }
@@ -37,6 +37,6 @@ class NotFoundError extends Error {
 module.exports = {
   AuthenticationError,
   AuthorizationError,
-  ValidationError,
+  BadRequestError,
   NotFoundError,
 };

@@ -1,24 +1,16 @@
 const { Router } = require("express");
 
-const requireAuth = require("../middlewares/requireAuth");
-// const user = require("../middlewares/user");
+//controllers
+const { me, getAll } = require("../controllers/userController");
 
-const me = (req, res) => {
-  return res.json(req.user);
-  // if (req.user) return res.json(req.user);
-  // return res.json(null);
-};
+//middlewares
+const permission = require("../middlewares/permission");
+const requireAuth = require("../middlewares/requireAuth");
+const { ROLE } = require("../utils/Roles");
 
 const router = Router();
 
-router.get("/", (req, res) => {
-  try {
-    return res.json({ message: "USERS - 👋🌎🌍🌏" });
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json({ error: "Something went wrong" });
-  }
-});
 router.get("/me", requireAuth, me);
+router.get("/getAll", permission([ROLE.ADMIN]), getAll);
 
 module.exports = router;
