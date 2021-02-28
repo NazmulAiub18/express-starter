@@ -17,6 +17,10 @@ app.use(helmet());
 app.use(cookieParser());
 app.use(cors());
 app.use(express.json());
+app.use((req, res, next) => {
+  res.locals.BACKEND_HOST = req.protocol + "://" + req.get("host");
+  return next();
+});
 
 app.get("/", (req, res) => {
   res.json({

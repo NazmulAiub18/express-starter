@@ -1,7 +1,7 @@
 const User = require("../models/User");
 
 exports.me = (req, res) => {
-  return res.json(req.user || {});
+  return res.json({ user: req.user });
 };
 
 exports.getAll = async (_, res) => {

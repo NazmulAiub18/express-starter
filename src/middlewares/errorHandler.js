@@ -1,5 +1,7 @@
+const logger = require("../libs/logger");
+
 module.exports = function errorHandler(err, req, res, next) {
-  //console.log(err);
+  //logger.error(err);
   let statusCode = 500;
   let message = err.message;
   let reason = err.reason;
@@ -25,6 +27,10 @@ module.exports = function errorHandler(err, req, res, next) {
       statusCode = 502;
       // message = "Database Error";
       // reason = err.message;
+      break;
+
+    case "TokenExpiredError":
+      statusCode = err.statusCode || 401;
       break;
 
     default:

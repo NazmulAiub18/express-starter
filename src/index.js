@@ -1,5 +1,14 @@
 const mongoose = require("mongoose");
-mongoose.set("debug", true);
+const logger = require("./libs/logger");
+
+// mongoose.set("debug", true);
+mongoose.set("debug", function (coll, method, query, doc, options) {
+  const queryStr = JSON.stringify(query);
+  const docStr = JSON.stringify(doc);
+  const optionsStr = JSON.stringify(options || {});
+
+  logger.debug(`${coll}.${method}(${queryStr}, ${optionsStr}, ${docStr});`);
+});
 
 const app = require("./app");
 
@@ -12,10 +21,11 @@ mongoose
     useCreateIndex: true,
   })
   .then(() => {
-    console.log("MongoDB Connected!");
+    logger.info("MongoDB Connected!");
+    require("./libs/agenda");
     return app.listen({ port });
   })
-  .then(() => console.log(`Server Started at http://localhost:${port}`))
+  .then(() => logger.info(`Server Started at http://localhost:${port}`))
   .catch((err) => {
-    console.error(err);
+    logger.error(err);
   });

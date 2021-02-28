@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const { model, Schema } = require("mongoose");
 
-const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const { emailRegex } = require("../utils/regex");
 
 const userSchema = new Schema(
   {
@@ -25,6 +25,10 @@ const userSchema = new Schema(
         validator: (password) => password.length >= 6,
         message: () => "Password must be at least 6 character long",
       },
+    },
+    verified: {
+      type: Boolean,
+      default: false,
     },
     role: {
       type: String,
